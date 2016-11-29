@@ -4,6 +4,7 @@ game.resources = [
      * @example
      * { name: "example", type:"image", src: "data/img/example.png" },
      */
+    { name: "forest",  type:"image", src: "data/img/forest.png" },
     { name: "hexmini",  type:"image", src: "data/img/hexmini.png" },
 
     /* Maps.
@@ -11,7 +12,7 @@ game.resources = [
      * { name: "example01", type: "tmx", src: "data/map/example01.tmx" },
      * { name: "example01", type: "tmx", src: "data/map/example01.json" },
       */
-    { name: "hexagonal-mini", type: "tmx", src: "data/map/hexagonal-mini.tmx" },
+    { name: "isometric", type: "tmx", src: "data/map/isometric.tmx" },
 
     /* Background music.
      * @example

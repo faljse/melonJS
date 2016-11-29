@@ -19,7 +19,7 @@ game.TextEntity = me.Renderable.extend({
             self.text = "?,?";
             //self.text = Math.round(event.gameX) + "," + Math.round(event.gameY);
             if (me.levelDirector.getCurrentLevelId()) {
-                var layer = me.game.world.getChildByName("Ground")[0];
+                var layer = me.game.world.getChildByName("level 1")[0];
                 var tile = layer.getTile(event.gameWorldX, event.gameWorldY);
                 if (tile) {
                     self.text = tile.col + "," + tile.row;
