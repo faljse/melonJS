@@ -554,7 +554,15 @@
          * var tile = layer.getTile(me.input.pointer.pos.x, me.input.pointer.pos.y);
          */
         getTile : function (x, y) {
-            return this.layerData[~~this.renderer.pixelToTileX(x, y)][~~this.renderer.pixelToTileY(y, x)];
+            var v = me.pool.pull("me.Vector2d");
+            this.renderer.pixelToTileCoords(x, y, v);
+            var tile = null;
+            if (~~v.x >= 0 && ~~v.x < this.layerData.length ||
+                ~~v.y >= 0 || ~~v.y < this.layerData[~~v.x].length) {
+                tile=this.layerData[~~v.x][~~v.y];
+            }
+            me.pool.push(v);
+            return tile;
         },
 
         /**

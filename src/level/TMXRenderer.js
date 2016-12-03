@@ -219,9 +219,12 @@
          */
         pixelToTileCoords : function (x, y, v) {
             var ret = v || new me.Vector2d();
+            ret.set(x, y);
+            // Apply isometric projection
+            ret.rotate(Math.PI / 4).scale(Math.SQRT2, Math.SQRT1_2);
             return ret.set(
-                this.pixelToTileX(x, y),
-                this.pixelToTileY(y, x)
+                (y / this.tileheight) + ((x - this.originX) / this.tilewidth),
+                (y / this.tileheight) - ((x - this.originX) / this.tilewidth)
             );
         },
 
@@ -230,15 +233,27 @@
          * @ignore
          */
         pixelToTileX : function (x, y) {
-            return (y / this.tileheight) + ((x - this.originX) / this.tilewidth);
+            var v = me.pool.pull("me.Vector2d");
+            var tile=this.pixelToTileCoords(x, y, v);
+            me.pool.push(v);
+            if (tile!=null) {
+                return tile.x;
+            }
+            return null;
         },
 
         /**
          * return the tile position corresponding for the given Y coordinates
          * @ignore
          */
-        pixelToTileY : function (y, x) {
-            return (y / this.tileheight) - ((x - this.originX) / this.tilewidth);
+        pixelToTileY : function (x, y) {
+            var v = me.pool.pull("me.Vector2d");
+            var tile=this.pixelToTileCoords(x, y, v);
+            me.pool.push(v);
+            if (tile!=null) {
+                return tile.y;
+            }
+            return null;
         },
 
         /**
